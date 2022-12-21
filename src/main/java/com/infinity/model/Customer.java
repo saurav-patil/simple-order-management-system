@@ -50,15 +50,19 @@ public class Customer {
 
 	public void setCustomerOrderCount(int customerOrderCount) {
 		if (customerOrderCount >= 10 && customerOrderCount <= 19) {
+			if (customerOrderCount == 19) {
+				mailMessageForPlat();
+			}
 			setCustomerCategory("GOLD");
-			this.customerOrderCount = customerOrderCount;
 		} else if (customerOrderCount >= 20) {
 			setCustomerCategory("PLATINUM");
-			this.customerOrderCount = customerOrderCount;
 		} else {
+			if (customerOrderCount == 9) {
+				mailMessageForGold();
+			}
 			setCustomerCategory("REGULAR");
-			this.customerOrderCount = customerOrderCount;
 		}
+		this.customerOrderCount = customerOrderCount;
 	}
 
 	public double getCustomerDiscount() {
@@ -85,12 +89,22 @@ public class Customer {
 	public void setCustomerCategory(String customerCategory) {
 		if (customerCategory == "GOLD") {
 			setCustomerDiscount(getCustomerDiscount() + 10 % 100);
-			this.customerCategory = customerCategory;
+
 		} else if (customerCategory == "PLATINUM") {
-			setCustomerDiscount(getCustomerDiscount()+ 20 % 100);
-			this.customerCategory = customerCategory;
+			setCustomerDiscount(getCustomerDiscount() + 20 % 100);
+
 		}
 		this.customerCategory = customerCategory;
+	}
+
+	public void mailMessageForGold() {
+		System.out.println("You have placed 9 orders with us. Buy one more stuff and you will be\r\n"
+				+ "promoted to Gold customer and enjoy 10% discounts!");
+	}
+
+	public void mailMessageForPlat() {
+		System.out.println("You have placed 19 orders with us. Buy one more stuff and you will be\r\n"
+				+ "promoted to Platinum customer and enjoy 20% discounts!");
 	}
 
 }
